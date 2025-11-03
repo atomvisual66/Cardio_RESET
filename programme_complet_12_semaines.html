@@ -1,0 +1,2185 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Road to Superman - Programme Complet 12 Semaines</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #818cf8;
+            --primary-dark: #6366f1;
+            --secondary: #34d399;
+            --accent: #fbbf24;
+            --danger: #f87171;
+            --dark: #0f172a;
+            --dark-card: #1e293b;
+            --dark-lighter: #334155;
+            --light: #f1f5f9;
+            --white: #ffffff;
+            --text-light: #e2e8f0;
+            --text-muted: #94a3b8;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            min-height: 100vh;
+            color: var(--text-light);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(129, 140, 248, 0.2);
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(129, 140, 248, 0.1), transparent);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        h1 {
+            font-size: 3em;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .subtitle {
+            color: var(--text-light);
+            font-size: 1.3em;
+            margin-top: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-card {
+            background: var(--dark-card);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            transition: transform 0.3s;
+            border: 1px solid rgba(129, 140, 248, 0.2);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            margin-top: 5px;
+            font-size: 0.9em;
+        }
+
+        /* Phase Navigation */
+        .phase-nav {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding: 15px;
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            flex-wrap: wrap;
+            justify-content: center;
+            border: 1px solid rgba(129, 140, 248, 0.2);
+        }
+
+        .phase-btn {
+            background: var(--dark-card);
+            border: 1px solid rgba(129, 140, 248, 0.3);
+            padding: 15px 25px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            white-space: nowrap;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            flex: 0 0 auto;
+            color: var(--text-light);
+        }
+
+        .phase-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(129, 140, 248, 0.4);
+            background: var(--dark-lighter);
+        }
+
+        .phase-btn.active {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            border-color: transparent;
+        }
+
+        /* Week Details */
+        .week-detail {
+            animation: fadeIn 0.5s;
+        }
+
+        .week-detail.hidden {
+            display: none;
+        }
+
+        /* Week Navigation inside weeks section */
+        .week-nav {
+            padding: 10px;
+        }
+
+        .week-nav .week-btn {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            background: linear-gradient(135deg, var(--dark-card), var(--dark-lighter));
+            color: var(--text-light);
+            font-size: 1.1em;
+            border: 2px solid rgba(129, 140, 248, 0.3);
+            min-width: 60px;
+        }
+
+        .week-nav .week-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(129, 140, 248, 0.5);
+            background: linear-gradient(135deg, var(--dark-lighter), var(--primary-dark));
+            border-color: var(--primary);
+        }
+
+        .week-nav .week-btn.active {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            font-weight: bold;
+            border-color: transparent;
+            box-shadow: 0 6px 25px rgba(129, 140, 248, 0.6);
+        }
+
+        /* Phase Content */
+        .phase-content {
+            background: var(--dark-card);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+            animation: fadeIn 0.5s;
+            border: 1px solid rgba(129, 140, 248, 0.2);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .phase-content.hidden {
+            display: none;
+        }
+
+        .phase-title {
+            font-size: 2.5em;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+
+        .phase-overview {
+            background: linear-gradient(135deg, var(--dark-lighter), var(--dark-card));
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            border-left: 5px solid var(--primary);
+        }
+
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .overview-item {
+            background: rgba(15, 23, 42, 0.7);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(129, 140, 248, 0.1);
+        }
+
+        .overview-label {
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .overview-value {
+            color: var(--text-muted);
+        }
+
+        /* Daily Schedule */
+        .daily-schedule {
+            margin-top: 30px;
+        }
+
+        .schedule-title {
+            font-size: 1.8em;
+            color: var(--text-light);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .schedule-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .schedule-card {
+            background: linear-gradient(135deg, var(--dark-card), var(--dark-lighter));
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px solid rgba(129, 140, 248, 0.2);
+            transition: all 0.3s;
+        }
+
+        .schedule-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 8px 25px rgba(129, 140, 248, 0.3);
+            transform: translateX(5px);
+        }
+
+        .schedule-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .schedule-time {
+            background: var(--primary);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .schedule-type {
+            background: var(--accent);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .schedule-details {
+            list-style: none;
+            margin-top: 15px;
+        }
+
+        .schedule-details li {
+            padding: 10px 15px;
+            margin-bottom: 8px;
+            background: rgba(30, 41, 59, 0.9);
+            border-radius: 8px;
+            border-left: 4px solid var(--secondary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .detail-name {
+            font-weight: 600;
+        }
+
+        .detail-params {
+            display: flex;
+            gap: 10px;
+            font-size: 0.9em;
+        }
+
+        .param {
+            background: #1e293b;
+            padding: 5px 12px;
+            border-radius: 8px;
+            color: #64748b;
+            font-weight: 600;
+        }
+
+        .speed {
+            background: rgba(129, 140, 248, 0.15);
+            color: #1e40af;
+        }
+
+        .incline {
+            background: rgba(251, 191, 36, 0.15);
+            color: #fcd34d; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Nutrition Table */
+        .nutrition-section {
+            margin-top: 30px;
+            background: linear-gradient(135deg, #334155, #1e293b);
+            padding: 25px;
+            border-radius: 15px;
+        }
+
+        .nutrition-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            background: rgba(30, 41, 59, 0.9);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .nutrition-table th {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .nutrition-table td {
+            padding: 15px;
+            border-bottom: 1px solid rgba(129, 140, 248, 0.2);
+        }
+
+        .nutrition-table tr:hover {
+            background: rgba(51, 65, 85, 0.5);
+        }
+
+        /* Progress Timeline */
+        .progress-timeline {
+            background: rgba(30, 41, 59, 0.9);
+            padding: 30px;
+            border-radius: 20px;
+            margin-top: 30px;
+            box-shadow: var(--shadow);
+        }
+
+        .timeline-title {
+            font-size: 2em;
+            color: var(--primary);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .timeline-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .timeline-item {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 5px solid var(--primary);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .timeline-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .timeline-item.completed {
+            background: linear-gradient(135deg, var(--secondary), #059669);
+            color: white;
+            border-left-color: white;
+        }
+
+        .timeline-week {
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+
+        .timeline-weight {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .timeline-desc {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        /* Week Details */
+        .week-detail {
+            animation: fadeIn 0.5s;
+        }
+
+        .week-detail.hidden {
+            display: none;
+        }
+
+        /* Results Section */
+        .results-section {
+            background: linear-gradient(135deg, #1e293b, #0f5132);
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            margin-top: 30px;
+            box-shadow: var(--shadow);
+        }
+
+        .results-title {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .result-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+        }
+
+        .result-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .result-label {
+            font-size: 0.9em;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+
+        .result-values {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .result-arrow {
+            font-size: 2em;
+        }
+
+        /* Tips Section */
+        .tips-section {
+            background: rgba(30, 41, 59, 0.9);
+            padding: 40px;
+            border-radius: 20px;
+            margin-top: 30px;
+            box-shadow: var(--shadow);
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .tip-card {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px solid rgba(129, 140, 248, 0.2);
+            transition: all 0.3s;
+        }
+
+        .tip-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.2);
+        }
+
+        .tip-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        .tip-card h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .phase-title {
+                font-size: 1.8em;
+            }
+
+            .detail-params {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .nutrition-table {
+                font-size: 0.9em;
+            }
+
+            .timeline-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        /* Highlight box */
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.2), rgba(251, 191, 36, 0.1));
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+            border-left: 5px solid var(--accent);
+        }
+
+        .highlight-box strong {
+            color: #fcd34d; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        }
+    
+        /* AMÉLIORATIONS QUALITÉ DARK MODE */
+        .param {
+            background: rgba(30, 41, 59, 0.8) !important;
+            padding: 6px 14px !important;
+            border-radius: 8px !important;
+            color: #e2e8f0 !important;
+            font-weight: 600 !important;
+            border: 1px solid rgba(129, 140, 248, 0.3) !important;
+        }
+
+        .speed {
+            background: rgba(59, 130, 246, 0.3) !important;
+            color: #93c5fd !important;
+            border-color: #3b82f6 !important;
+        }
+
+        .incline {
+            background: rgba(251, 191, 36, 0.3) !important;
+            color: #fcd34d !important;
+            border-color: #f59e0b !important;
+        }
+
+        .calories {
+            background: rgba(239, 68, 68, 0.3) !important;
+            color: #fca5a5 !important;
+            font-size: 1.1em !important;
+            font-weight: bold !important;
+            border: 1px solid #ef4444 !important;
+        }
+
+        h3 {
+            color: #e2e8f0 !important;
+        }
+
+        strong {
+            color: #f1f5f9 !important;
+        }
+
+        .timeline-item {
+            background: linear-gradient(135deg, #1e293b, #334155) !important;
+            border: 2px solid rgba(129, 140, 248, 0.2) !important;
+        }
+
+        .timeline-item:hover {
+            border-color: #818cf8 !important;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px) !important;
+            box-shadow: 0 8px 25px rgba(129, 140, 248, 0.4) !important;
+            border-color: #818cf8 !important;
+        }
+
+        .detail-name, .exercise-name {
+            color: #e2e8f0 !important;
+        }
+
+        .overview-label {
+            color: #818cf8 !important;
+        }
+
+        .result-card {
+            background: rgba(30, 41, 59, 0.4) !important;
+            border: 1px solid rgba(129, 140, 248, 0.3) !important;
+        }
+
+        .tip-card {
+            background: linear-gradient(135deg, #1e293b, #334155) !important;
+            border: 2px solid rgba(129, 140, 248, 0.2) !important;
+        }
+
+        .tip-card:hover {
+            border-color: #818cf8 !important;
+            box-shadow: 0 8px 20px rgba(129, 140, 248, 0.3) !important;
+        }
+
+    
+        /* Amélioration supplémentaire de la lisibilité */
+        p {
+            color: #cbd5e1;
+            line-height: 1.8;
+        }
+
+        .schedule-time, .schedule-type {
+            font-weight: bold;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .phase-overview p, .week-goal p {
+            color: #e2e8f0;
+        }
+
+        .nutrition-table th {
+            background: linear-gradient(135deg, #4f46e5, #6366f1) !important;
+            color: white !important;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .nutrition-table td {
+            color: #cbd5e1;
+        }
+
+        .timeline-week {
+            color: #e2e8f0;
+        }
+
+        .timeline-weight {
+            color: #818cf8;
+        }
+
+        .result-values {
+            color: white;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Glow effect sur les éléments actifs */
+        .week-btn.active, .phase-btn.active {
+            box-shadow: 0 0 20px rgba(129, 140, 248, 0.5), 0 6px 25px rgba(129, 140, 248, 0.6) !important;
+        }
+
+        /* Amélioration des scrollbars */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #6366f1, #818cf8);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #818cf8, #a5b4fc);
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🦸‍♂️ ROAD TO SUPERMAN</h1>
+            <div class="subtitle">Programme Complet 12 Semaines - Muscu + Double Cardio + Jeûne Intermittent</div>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value">106 kg</div>
+                    <div class="stat-label" style="color: #94a3b8;">Poids départ</div>
+                </div>
+                <div class="stat-card pulse">
+                    <div class="stat-value">90-92 kg</div>
+                    <div class="stat-label" style="color: #94a3b8;">Objectif final</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">14-16 kg</div>
+                    <div class="stat-label" style="color: #94a3b8;">Perte totale</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">5x</div>
+                    <div class="stat-label" style="color: #94a3b8;">Muscu / semaine</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">2x</div>
+                    <div class="stat-label" style="color: #94a3b8;">Cardio / jour</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">16/8</div>
+                    <div class="stat-label" style="color: #94a3b8;">Jeûne intermittent</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">31,7</div>
+                    <div class="stat-label" style="color: #94a3b8;">VO₂ max départ</div>
+                </div>
+                <div class="stat-card pulse">
+                    <div class="stat-value">40-42</div>
+                    <div class="stat-label" style="color: #94a3b8;">VO₂ max cible</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Phase Navigation -->
+        <div class="phase-nav">
+            <button class="phase-btn active" onclick="showPhase('overview')">📊 Vue d'ensemble</button>
+            <button class="phase-btn" onclick="showPhase('weeks')">📅 Semaines détaillées</button>
+            <button class="phase-btn" onclick="showPhase('phase1')">Phase 1 (S1-4)</button>
+            <button class="phase-btn" onclick="showPhase('phase2')">Phase 2 (S5-8)</button>
+            <button class="phase-btn" onclick="showPhase('phase3')">Phase 3 (S9-12)</button>
+            <button class="phase-btn" onclick="showPhase('results')">🎯 Résultats attendus</button>
+        </div>
+
+        <!-- Weeks Detail Section -->
+        <div class="phase-content hidden" id="weeks">
+            <h2 class="phase-title">📅 Programme Cardio Semaine par Semaine</h2>
+            
+            <div style="background: linear-gradient(135deg, rgba(129, 140, 248, 0.25), rgba(129, 140, 248, 0.15)); border: 1px solid rgba(129, 140, 248, 0.4); padding: 20px; border-radius: 15px; margin-bottom: 30px; border-left: 5px solid var(--primary);">
+                <p style="font-size: 1.1em; line-height: 1.8; color: #e2e8f0;"><strong>💡 Rappel :</strong> Ce programme cardio est à faire <strong>2 fois par jour</strong> : une fois le matin à jeun et une fois le soir après le repas. Les paramètres ci-dessous sont pour chaque session.</p>
+            </div>
+
+            <!-- Week Navigation -->
+            <div class="week-nav" style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 30px; justify-content: center;">
+                <button class="week-btn active" onclick="showWeek(1)" style="background: rgba(30, 41, 59, 0.9); border: none; padding: 12px 20px; border-radius: 10px; cursor: pointer; font-weight: bold; transition: all 0.3s;">S1</button>
+                <button class="week-btn" onclick="showWeek(2)" style="background: rgba(30, 41, 59, 0.9); border: none; padding: 12px 20px; border-radius: 10px; cursor: pointer; font-weight: bold; transition: all 0.3s;">S2</button>
+                <button class="week-btn" onclick="showWeek(3)" style="background: rgba(30, 41, 59, 0.9); border: none; padding: 12px 20px; border-radius: 10px; cursor: pointer; font-weight: bold; transition: all 0.3s;">S3</button>
+                <button class="week-btn" onclick="showWeek(4)" style="background: rgba(30, 41, 59, 0.9); border: none; padding: 12px 20px; border-radius: 10px; cursor: pointer; font-weight: bold; transition: all 0.3s;">S4</button>
+                <button class="week-btn" onclick="showWeek(5)" style="background: rgba(30, 41, 59, 0.9); border: none; padding: 12px 20px; border-radius: 10px; cursor: pointer; font-weight: bold; transition: all 0.3s;">S5</button>
+                <button class="week-btn" onclick="showWeek(6)" style="background: rgba(30, 41, 59, 0.9); border: none; padding: 12px 20px; border-radius: 10px; cursor: pointer; font-weight: bold; transition: all 0.3s;">S6</button>
+                <button class="week-btn" onclick="showWeek(7)" style="background: rgba(30, 41, 59, 0.9); border: none; padding: 12px 20px; border-radius: 10px; cursor: pointer; font-weight: bold; transition: all 0.3s;">S7</button>
+                <button class="week-btn" onclick="showWeek(8)" style="background: rgba(30, 41, 59, 0.9); border: none; padding: 12px 20px; border-radius: 10px; cursor: pointer; font-weight: bold; transition: all 0.3s;">S8</button>
+                <button class="week-btn" onclick="showWeek(9)" style="background: rgba(30, 41, 59, 0.9); border: none; padding: 12px 20px; border-radius: 10px; cursor: pointer; font-weight: bold; transition: all 0.3s;">S9</button>
+                <button class="week-btn" onclick="showWeek(10)" style="background: rgba(30, 41, 59, 0.9); border: none; padding: 12px 20px; border-radius: 10px; cursor: pointer; font-weight: bold; transition: all 0.3s;">S10</button>
+                <button class="week-btn" onclick="showWeek(11)" style="background: rgba(30, 41, 59, 0.9); border: none; padding: 12px 20px; border-radius: 10px; cursor: pointer; font-weight: bold; transition: all 0.3s;">S11</button>
+                <button class="week-btn" onclick="showWeek(12)" style="background: rgba(30, 41, 59, 0.9); border: none; padding: 12px 20px; border-radius: 10px; cursor: pointer; font-weight: bold; transition: all 0.3s;">S12</button>
+            </div>
+
+            <!-- Week 1 Content -->
+            <div class="week-detail" id="week1-content">
+                <div style="background: linear-gradient(135deg, #1e293b, #334155); padding: 30px; border-radius: 15px; border: 2px solid rgba(129, 140, 248, 0.2);">
+                    <h3 style="font-size: 2em; color: var(--primary); margin-bottom: 15px;">SEMAINE 1 – Activer le moteur ⚙️</h3>
+                    
+                    <div style="background: rgba(251, 191, 36, 0.15); padding: 20px; border-radius: 12px; margin-bottom: 25px; border-left: 5px solid var(--accent);">
+                        <strong style="color: #fcd34d; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5); font-size: 1.1em;">🎯 Objectif :</strong>
+                        <p style="margin-top: 10px; line-height: 1.8; color: #e2e8f0;">Relancer ton système cardio sans pic de fréquence cardiaque.</p>
+                    </div>
+
+                    <div style="display: grid; gap: 15px; margin-bottom: 20px;">
+                        <div style="background: rgba(30, 41, 59, 0.9); padding: 15px; border-radius: 10px; border-left: 4px solid var(--secondary);">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <strong>🔥 Échauffement</strong>
+                                <div style="display: flex; gap: 10px;">
+                                    <span class="param speed">4,2 km/h</span>
+                                    <span class="param incline">2%</span>
+                                    <span class="param">5 min</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="background: rgba(30, 41, 59, 0.9); padding: 15px; border-radius: 10px; border-left: 4px solid var(--primary);">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <strong>💪 Marche continue</strong>
+                                <div style="display: flex; gap: 10px;">
+                                    <span class="param speed">4,5 km/h</span>
+                                    <span class="param incline">5%</span>
+                                    <span class="param">20 min</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="background: rgba(30, 41, 59, 0.9); padding: 15px; border-radius: 10px; border-left: 4px solid var(--secondary);">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <strong>😌 Retour au calme</strong>
+                                <div style="display: flex; gap: 10px;">
+                                    <span class="param speed">4 km/h</span>
+                                    <span class="param incline">0%</span>
+                                    <span class="param">10 min</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="background: linear-gradient(135deg, rgba(129, 140, 248, 0.25), rgba(129, 140, 248, 0.15)); border: 1px solid rgba(129, 140, 248, 0.4); padding: 20px; border-radius: 12px; margin-top: 20px;">
+                        <p style="line-height: 1.8; color: #e2e8f0;"><strong>💡 Conseil :</strong> Reste toujours dans une zone où tu peux parler.</p>
+                        <p style="margin-top: 10px;"><strong>🧩 Résultat :</strong> C'est ta fondation. Tu brûles déjà <span style="font-size: 1.2em; color: var(--primary); font-weight: bold;">300-400 kcal</span> par séance.</p>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 20px; padding: 20px; background: rgba(30, 41, 59, 0.9); border-radius: 12px;">
+                        <div style="font-size: 0.9em; color: #94a3b8; margin-bottom: 10px;">Fréquence</div>
+                        <div style="font-size: 2em; font-weight: bold; color: var(--primary);">3 séances</div>
+                        <div style="font-size: 0.9em; color: #94a3b8; margin-top: 5px;">35 minutes chacune</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Week 2 Content -->
+            <div class="week-detail hidden" id="week2-content">
+                <div style="background: linear-gradient(135deg, #1e293b, #334155); padding: 30px; border-radius: 15px; border: 2px solid rgba(129, 140, 248, 0.2);">
+                    <h3 style="font-size: 2em; color: var(--primary); margin-bottom: 15px;">SEMAINE 2 – Stabiliser le rythme 🎵</h3>
+                    
+                    <div style="background: rgba(251, 191, 36, 0.15); padding: 20px; border-radius: 12px; margin-bottom: 25px; border-left: 5px solid var(--accent);">
+                        <strong style="color: #fcd34d; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5); font-size: 1.1em;">🎯 Objectif :</strong>
+                        <p style="margin-top: 10px; line-height: 1.8; color: #e2e8f0;">Habituer ton cœur à des variations d'effort douces.</p>
+                    </div>
+
+                    <div style="background: rgba(129, 140, 248, 0.2); padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                        <strong>🔄 Structure en cycles</strong>
+                        <p style="margin-top: 10px;">Répète le cycle suivant <strong>× 4</strong></p>
+                    </div>
+
+                    <div style="display: grid; gap: 15px; margin-bottom: 20px;">
+                        <div style="background: rgba(30, 41, 59, 0.9); padding: 15px; border-radius: 10px; border-left: 4px solid var(--secondary);">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <strong>🔄 Cycle 1</strong>
+                                <div style="display: flex; gap: 10px;">
+                                    <span class="param speed">4,5 km/h</span>
+                                    <span class="param incline">5%</span>
+                                    <span class="param">5 min</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="background: rgba(30, 41, 59, 0.9); padding: 15px; border-radius: 10px; border-left: 4px solid var(--primary);">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <strong>🔄 Cycle 2</strong>
+                                <div style="display: flex; gap: 10px;">
+                                    <span class="param speed">5,0 km/h</span>
+                                    <span class="param incline">6%</span>
+                                    <span class="param">4 min</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="background: rgba(30, 41, 59, 0.9); padding: 15px; border-radius: 10px; border-left: 4px solid var(--secondary);">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <strong>🔄 Cycle 3 (Récup)</strong>
+                                <div style="display: flex; gap: 10px;">
+                                    <span class="param speed">4,2 km/h</span>
+                                    <span class="param incline">2%</span>
+                                    <span class="param">3 min</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="background: linear-gradient(135deg, rgba(129, 140, 248, 0.25), rgba(129, 140, 248, 0.15)); border: 1px solid rgba(129, 140, 248, 0.4); padding: 20px; border-radius: 12px; margin-top: 20px;">
+                        <p style="line-height: 1.8; color: #e2e8f0;"><strong>💡 Conseil :</strong> Finis avec 4 km/h – 0% sur 5 min.</p>
+                        <p style="margin-top: 10px;"><strong>🧩 Résultat :</strong> Tu montes à <span style="font-size: 1.2em; color: var(--primary); font-weight: bold;">400-450 kcal</span> par séance.</p>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 20px; padding: 20px; background: rgba(30, 41, 59, 0.9); border-radius: 12px;">
+                        <div style="font-size: 0.9em; color: #94a3b8; margin-bottom: 10px;">Fréquence</div>
+                        <div style="font-size: 2em; font-weight: bold; color: var(--primary);">3 à 4 séances</div>
+                        <div style="font-size: 0.9em; color: #94a3b8; margin-top: 5px;">35 minutes chacune</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Week 3 Content -->
+            <div class="week-detail hidden" id="week3-content">
+                <div style="background: linear-gradient(135deg, #1e293b, #334155); padding: 30px; border-radius: 15px; border: 2px solid rgba(129, 140, 248, 0.2);">
+                    <h3 style="font-size: 2em; color: var(--primary); margin-bottom: 15px;">SEMAINE 3 – Premiers intervalles ⚡</h3>
+                    
+                    <div style="background: rgba(251, 191, 36, 0.15); padding: 20px; border-radius: 12px; margin-bottom: 25px; border-left: 5px solid var(--accent);">
+                        <strong style="color: #fcd34d; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5); font-size: 1.1em;">🎯 Objectif :</strong>
+                        <p style="margin-top: 10px; line-height: 1.8; color: #e2e8f0;">Faire travailler le cœur par à-coups contrôlés.</p>
+                    </div>
+
+                    <div style="display: grid; gap: 15px; margin-bottom: 20px;">
+                        <div style="background: rgba(30, 41, 59, 0.9); padding: 15px; border-radius: 10px; border-left: 4px solid var(--secondary);">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <strong>🔥 Échauffement</strong>
+                                <div style="display: flex; gap: 10px;">
+                                    <span class="param speed">4,5 km/h</span>
+                                    <span class="param incline">2%</span>
+                                    <span class="param">5 min</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="background: rgba(251, 191, 36, 0.2); padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                        <strong>⚡ Intervalles - Répète <span style="color: var(--primary); ">× 8</span></strong>
+                    </div>
+
+                    <div style="display: grid; gap: 15px; margin-bottom: 20px;">
+                        <div style="background: rgba(30, 41, 59, 0.9); padding: 15px; border-radius: 10px; border-left: 4px solid #ef4444;">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <strong>⚡ Intervalle actif</strong>
+                                <div style="display: flex; gap: 10px;">
+                                    <span class="param speed">5,5 km/h</span>
+                                    <span class="param incline">8%</span>
+                                    <span class="param">1 min</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="background: rgba(30, 41, 59, 0.9); padding: 15px; border-radius: 10px; border-left: 4px solid var(--secondary);">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <strong>😌 Récupération</strong>
+                                <div style="display: flex; gap: 10px;">
+                                    <span class="param speed">4,2 km/h</span>
+                                    <span class="param incline">2%</span>
+                                    <span class="param">2 min</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="display: grid; gap: 15px; margin-bottom: 20px;">
+                        <div style="background: rgba(30, 41, 59, 0.9); padding: 15px; border-radius: 10px; border-left: 4px solid var(--secondary);">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <strong>🏁 Retour au calme</strong>
+                                <div style="display: flex; gap: 10px;">
+                                    <span class="param speed">4 km/h</span>
+                                    <span class="param incline">0%</span>
+                                    <span class="param">5 min</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="background: linear-gradient(135deg, rgba(129, 140, 248, 0.25), rgba(129, 140, 248, 0.15)); border: 1px solid rgba(129, 140, 248, 0.4); padding: 20px; border-radius: 12px; margin-top: 20px;">
+                        <p style="margin-top: 10px;"><strong>🧩 Résultat :</strong> Tu montes à <span style="font-size: 1.2em; color: var(--primary); font-weight: bold;">500 kcal</span> par séance, ton cardio commence à s'adapter.</p>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 20px; padding: 20px; background: rgba(30, 41, 59, 0.9); border-radius: 12px;">
+                        <div style="font-size: 0.9em; color: #94a3b8; margin-bottom: 10px;">Fréquence</div>
+                        <div style="font-size: 2em; font-weight: bold; color: var(--primary);">4 séances</div>
+                        <div style="font-size: 0.9em; color: #94a3b8; margin-top: 5px;">40 minutes chacune</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Week 4 Content -->
+            <div class="week-detail hidden" id="week4-content">
+                <div style="background: linear-gradient(135deg, #1e293b, #334155); padding: 30px; border-radius: 15px; border: 2px solid rgba(129, 140, 248, 0.2);">
+                    <h3 style="font-size: 2em; color: var(--primary); margin-bottom: 15px;">SEMAINE 4 – Endurance douce 🌊</h3>
+                    
+                    <div style="background: rgba(251, 191, 36, 0.15); padding: 20px; border-radius: 12px; margin-bottom: 25px; border-left: 5px solid var(--accent);">
+                        <strong style="color: #fcd34d; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5); font-size: 1.1em;">🎯 Objectif :</strong>
+                        <p style="margin-top: 10px; line-height: 1.8; color: #e2e8f0;">Améliorer la capacité à maintenir un effort stable.</p>
+                    </div>
+
+                    <div style="display: grid; gap: 15px; margin-bottom: 20px;">
+                        <div style="background: rgba(30, 41, 59, 0.9); padding: 15px; border-radius: 10px; border-left: 4px solid var(--secondary);">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <strong>🔥 Échauffement</strong>
+                                <div style="display: flex; gap: 10px;">
+                                    <span class="param speed">4,5 km/h</span>
+                                    <span class="param incline">2%</span>
+                                    <span class="param">5 min</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="background: rgba(30, 41, 59, 0.9); padding: 15px; border-radius: 10px; border-left: 4px solid var(--primary);">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <strong>💪 Endurance principale</strong>
+                                <div style="display: flex; gap: 10px;">
+                                    <span class="param speed">5 km/h</span>
+                                    <span class="param incline">7%</span>
+                                    <span class="param">30 min</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="background: rgba(30, 41, 59, 0.9); padding: 15px; border-radius: 10px; border-left: 4px solid var(--secondary);">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <strong>😌 Retour au calme</strong>
+                                <div style="display: flex; gap: 10px;">
+                                    <span class="param speed">4 km/h</span>
+                                    <span class="param incline">0%</span>
+                                    <span class="param">10 min</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="background: linear-gradient(135deg, rgba(129, 140, 248, 0.25), rgba(129, 140, 248, 0.15)); border: 1px solid rgba(129, 140, 248, 0.4); padding: 20px; border-radius: 12px; margin-top: 20px;">
+                        <p style="margin-top: 10px;"><strong>🧩 Résultat :</strong> Le cœur devient plus efficace, tu souffles moins vite.</p>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 20px; padding: 20px; background: rgba(30, 41, 59, 0.9); border-radius: 12px;">
+                        <div style="font-size: 0.9em; color: #94a3b8; margin-bottom: 10px;">Fréquence</div>
+                        <div style="font-size: 2em; font-weight: bold; color: var(--primary);">4 séances</div>
+                        <div style="font-size: 0.9em; color: #94a3b8; margin-top: 5px;">40-45 minutes chacune</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Week 5 Content -->
+            <div class="week-detail hidden" id="week5-content">
+                <div style="background: linear-gradient(135deg, #1e293b, #334155); padding: 30px; border-radius: 15px; border: 2px solid rgba(129, 140, 248, 0.2);">
+                    <h3 style="font-size: 2em; color: var(--primary); margin-bottom: 15px;">SEMAINE 5 – Retour des intervalles 💥</h3>
+                    
+                    <div style="background: rgba(251, 191, 36, 0.15); padding: 20px; border-radius: 12px; margin-bottom: 25px; border-left: 5px solid var(--accent);">
+                        <strong style="color: #fcd34d; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5); font-size: 1.1em;">🎯 Objectif :</strong>
+                        <p style="margin-top: 10px; line-height: 1.8; color: #e2e8f0;">Créer un "choc adaptatif" contrôlé.</p>
+                    </div>
+
+                    <div style="background: rgba(251, 191, 36, 0.2); padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                        <strong>⚡ Intervalles - Répète <span style="color: var(--primary); ">× 6</span></strong>
+                    </div>
+
+                    <div style="display: grid; gap: 15px; margin-bottom: 20px;">
+                        <div style="background: rgba(30, 41, 59, 0.9); padding: 15px; border-radius: 10px; border-left: 4px solid #ef4444;">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <strong>⚡ Intervalle actif</strong>
+                                <div style="display: flex; gap: 10px;">
+                                    <span class="param speed">5,5 km/h</span>
+                                    <span class="param incline">8%</span>
+                                    <span class="param">4 min</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="background: rgba(30, 41, 59, 0.9); padding: 15px; border-radius: 10px; border-left: 4px solid var(--secondary);">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <strong>😌 Récupération</strong>
+                                <div style="display: flex; gap: 10px;">
+                                    <span class="param speed">4,2 km/h</span>
+                                    <span class="param incline">2%</span>
+                                    <span class="param">2 min</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="background: linear-gradient(135deg, rgba(129, 140, 248, 0.25), rgba(129, 140, 248, 0.15)); border: 1px solid rgba(129, 140, 248, 0.4); padding: 20px; border-radius: 12px; margin-top: 20px;">
+                        <p style="margin-top: 10px;"><strong>🧩 Résultat :</strong> Tu brûles environ <span style="font-size: 1.2em; color: var(--primary); font-weight: bold;">550 kcal</span> et ressens une vraie montée d'énergie.</p>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 20px; padding: 20px; background: rgba(30, 41, 59, 0.9); border-radius: 12px;">
+                        <div style="font-size: 0.9em; color: #94a3b8; margin-bottom: 10px;">Fréquence</div>
+                        <div style="font-size: 2em; font-weight: bold; color: var(--primary);">4 à 5 séances</div>
+                        <div style="font-size: 0.9em; color: #94a3b8; margin-top: 5px;">40 minutes chacune</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Week 6 Content -->
+            <div class="week-detail hidden" id="week6-content">
+                <div style="background: linear-gradient(135deg, #1e293b, #334155); padding: 30px; border-radius: 15px; border: 2px solid rgba(129, 140, 248, 0.2);">
+                    <h3 style="font-size: 2em; color: var(--primary); margin-bottom: 15px;">SEMAINE 6 – Power Incline 🏔️</h3>
+                    
+                    <div style="background: rgba(251, 191, 36, 0.15); padding: 20px; border-radius: 12px; margin-bottom: 25px; border-left: 5px solid var(--accent);">
+                        <strong style="color: #fcd34d; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5); font-size: 1.1em;">🎯 Objectif :</strong>
+                        <p style="margin-top: 10px; line-height: 1.8; color: #e2e8f0;">Renforcer le bas du corps et booster le métabolisme.</p>
+                    </div>
+
+                    <div style="background: rgba(251, 191, 36, 0.2); padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                        <strong>🏔️ Cycles - Répète <span style="color: var(--primary); ">× 6</span></strong>
+                    </div>
+
+                    <div style="display: grid; gap: 15px; margin-bottom: 20px;">
+                        <div style="background: rgba(30, 41, 59, 0.9); padding: 15px; border-radius: 10px; border-left: 4px solid var(--secondary);">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <strong>🔥 Échauffement</strong>
+                                <div style="display: flex; gap: 10px;">
+                                    <span class="param speed">4,5 km/h</span>
+                                    <span class="param incline">3%</span>
+                                    <span class="param">5 min</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="background: rgba(30, 41, 59, 0.9); padding: 15px; border-radius: 10px; border-left: 4px solid #ef4444;">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <strong>🏔️ Montée puissante</strong>
+                                <div style="display: flex; gap: 10px;">
+                                    <span class="param speed">5,5 km/h</span>
+                                    <span class="param incline">10%</span>
+                                    <span class="param">3 min</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="background: rgba(30, 41, 59, 0.9); padding: 15px; border-radius: 10px; border-left: 4px solid var(--secondary);">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <strong>😌 Récupération active</strong>
+                                <div style="display: flex; gap: 10px;">
+                                    <span class="param speed">4,5 km/h</span>
+                                    <span class="param incline">3%</span>
+                                    <span class="param">3 min</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="background: linear-gradient(135deg, rgba(129, 140, 248, 0.25), rgba(129, 140, 248, 0.15)); border: 1px solid rgba(129, 140, 248, 0.4); padding: 20px; border-radius: 12px; margin-top: 20px;">
+                        <p style="line-height: 1.8; color: #e2e8f0;"><strong>💡 Conseil :</strong> Sens la brûlure dans les cuisses et les mollets - c'est bon signe !</p>
+                        <p style="margin-top: 10px;"><strong>🧩 Résultat :</strong> Tu gagnes du muscle sur les jambes, ta VO₂ max monte.</p>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 20px; padding: 20px; background: rgba(30, 41, 59, 0.9); border-radius: 12px;">
+                        <div style="font-size: 0.9em; color: #94a3b8; margin-bottom: 10px;">Fréquence</div>
+                        <div style="font-size: 2em; font-weight: bold; color: var(--primary);">4 séances</div>
+                        <div style="font-size: 0.9em; color: #94a3b8; margin-top: 5px;">45 minutes chacune</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Week 7 Content -->
+            <div class="week-detail hidden" id="week7-content">
+                <div style="background: linear-gradient(135deg, #1e293b, #334155); padding: 30px; border-radius: 15px; border: 2px solid rgba(129, 140, 248, 0.2);">
+                    <h3 style="font-size: 2em; color: var(--primary); margin-bottom: 15px;">SEMAINE 7 – Endurance haute intensité 🚀</h3>
+                    
+                    <div style="background: rgba(251, 191, 36, 0.15); padding: 20px; border-radius: 12px; margin-bottom: 25px; border-left: 5px solid var(--accent);">
+                        <strong style="color: #fcd34d; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5); font-size: 1.1em;">🎯 Objectif :</strong>
+                        <p style="margin-top: 10px; line-height: 1.8; color: #e2e8f0;">Tenir un effort plus long à pente forte.</p>
+                    </div>
+
+                    <div style="display: grid; gap: 15px; margin-bottom: 20px;">
+                        <div style="background: rgba(30, 41, 59, 0.9); padding: 15px; border-radius: 10px; border-left: 4px solid var(--secondary);">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <strong>🔥 Échauffement</strong>
+                                <div style="display: flex; gap: 10px;">
+                                    <span class="param speed">4,5 km/h</span>
+                                    <span class="param incline">2%</span>
+                                    <span class="param">5 min</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="background: rgba(30, 41, 59, 0.9); padding: 15px; border-radius: 10px; border-left: 4px solid var(--primary);">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <strong>💪 Endurance intense</strong>
+                                <div style="display: flex; gap: 10px;">
+                                    <span class="param speed">5,5 km/h</span>
+                                    <span class="param incline">10%</span>
+                                    <span class="param">25 min</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="background: rgba(30, 41, 59, 0.9); padding: 15px; border-radius: 10px; border-left: 4px solid var(--secondary);">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <strong>😌 Retour au calme</strong>
+                                <div style="display: flex; gap: 10px;">
+                                    <span class="param speed">4 km/h</span>
+                                    <span class="param incline">0%</span>
+                                    <span class="param">10 min</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="background: linear-gradient(135deg, rgba(129, 140, 248, 0.25), rgba(129, 140, 248, 0.15)); border: 1px solid rgba(129, 140, 248, 0.4); padding: 20px; border-radius: 12px; margin-top: 20px;">
+                        <p style="line-height: 1.8; color: #e2e8f0;"><strong>💡 Conseil :</strong> Les 25 minutes sont le cœur de ta transformation - accroche-toi !</p>
+                        <p style="margin-top: 10px;"><strong>🧩 Résultat :</strong> Tu peux désormais encaisser <span style="font-size: 1.2em; color: var(--primary); font-weight: bold;">600 kcal</span> par séance.</p>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 20px; padding: 20px; background: rgba(30, 41, 59, 0.9); border-radius: 12px;">
+                        <div style="font-size: 0.9em; color: #94a3b8; margin-bottom: 10px;">Fréquence</div>
+                        <div style="font-size: 2em; font-weight: bold; color: var(--primary);">4 séances</div>
+                        <div style="font-size: 0.9em; color: #94a3b8; margin-top: 5px;">45 minutes chacune</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Week 8 Content -->
+            <div class="week-detail hidden" id="week8-content">
+                <div style="background: linear-gradient(135deg, #1e293b, #334155); padding: 30px; border-radius: 15px; border: 2px solid rgba(129, 140, 248, 0.2);">
+                    <h3 style="font-size: 2em; color: var(--primary); margin-bottom: 15px;">SEMAINE 8 – Test final : "Superman Walk" 🦸‍♂️</h3>
+                    
+                    <div style="background: rgba(251, 191, 36, 0.15); padding: 20px; border-radius: 12px; margin-bottom: 25px; border-left: 5px solid var(--accent);">
+                        <strong style="color: #fcd34d; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5); font-size: 1.1em;">🎯 Objectif :</strong>
+                        <p style="margin-top: 10px; line-height: 1.8; color: #e2e8f0;">Valider ton nouveau niveau cardio.</p>
+                    </div>
+
+                    <div style="display: grid; gap: 15px; margin-bottom: 20px;">
+                        <div style="background: rgba(30, 41, 59, 0.9); padding: 15px; border-radius: 10px; border-left: 4px solid var(--secondary);">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <strong>🔥 Échauffement</strong>
+                                <div style="display: flex; gap: 10px;">
+                                    <span class="param speed">4,5 km/h</span>
+                                    <span class="param incline">2%</span>
+                                    <span class="param">5 min</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="background: rgba(251, 191, 36, 0.2); padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                        <strong>🦸‍♂️ Intervalles Superman - Répète <span style="color: var(--primary); ">× 8</span></strong>
+                    </div>
+
+                    <div style="display: grid; gap: 15px; margin-bottom: 20px;">
+                        <div style="background: rgba(30, 41, 59, 0.9); padding: 15px; border-radius: 10px; border-left: 4px solid #ef4444;">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <strong>🦸‍♂️ Superman actif</strong>
+                                <div style="display: flex; gap: 10px;">
+                                    <span class="param speed">6 km/h</span>
+                                    <span class="param incline">12%</span>
+                                    <span class="param">2 min</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="background: rgba(30, 41, 59, 0.9); padding: 15px; border-radius: 10px; border-left: 4px solid var(--secondary);">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <strong>😌 Récupération</strong>
+                                <div style="display: flex; gap: 10px;">
+                                    <span class="param speed">4,5 km/h</span>
+                                    <span class="param incline">3%</span>
+                                    <span class="param">2 min</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="display: grid; gap: 15px; margin-bottom: 20px;">
+                        <div style="background: rgba(30, 41, 59, 0.9); padding: 15px; border-radius: 10px; border-left: 4px solid var(--secondary);">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <strong>🏁 Retour au calme</strong>
+                                <div style="display: flex; gap: 10px;">
+                                    <span class="param speed">4 km/h</span>
+                                    <span class="param incline">0%</span>
+                                    <span class="param">5 min</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="background: linear-gradient(135deg, rgba(52, 211, 153, 0.25), rgba(52, 211, 153, 0.15)); border: 1px solid rgba(52, 211, 153, 0.4); padding: 20px; border-radius: 12px; margin-top: 20px; border-left: 5px solid var(--secondary);">
+                        <p style="line-height: 1.8; font-size: 1.1em;"><strong>🎉 FÉLICITATIONS !</strong> Tu es maintenant capable de tenir 12% d'inclinaison à 6 km/h !</p>
+                        <p style="margin-top: 10px;"><strong>🧩 Résultat :</strong> Tu dépasses <span style="font-size: 1.2em; color: var(--primary); font-weight: bold;">650-700 kcal</span> brûlées et ton VO₂ max peut grimper à <strong>37-38</strong>.</p>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 20px; padding: 20px; background: rgba(30, 41, 59, 0.9); border-radius: 12px;">
+                        <div style="font-size: 0.9em; color: #94a3b8; margin-bottom: 10px;">Fréquence</div>
+                        <div style="font-size: 2em; font-weight: bold; color: var(--primary);">3 à 4 séances</div>
+                        <div style="font-size: 0.9em; color: #94a3b8; margin-top: 5px;">45 minutes chacune</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Weeks 9-12 Content (Continuation) -->
+            <div class="week-detail hidden" id="week9-content">
+                <div style="background: linear-gradient(135deg, #1e293b, #334155); padding: 30px; border-radius: 15px; border: 2px solid rgba(129, 140, 248, 0.2);">
+                    <h3 style="font-size: 2em; color: var(--primary); margin-bottom: 15px;">SEMAINE 9 – Consolidation avancée 💎</h3>
+                    
+                    <div style="background: rgba(251, 191, 36, 0.15); padding: 20px; border-radius: 12px; margin-bottom: 25px; border-left: 5px solid var(--accent);">
+                        <strong style="color: #fcd34d; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5); font-size: 1.1em;">🎯 Objectif :</strong>
+                        <p style="margin-top: 10px; line-height: 1.8; color: #e2e8f0;">Maintenir l'intensité tout en optimisant la récupération.</p>
+                    </div>
+
+                    <div style="display: grid; gap: 15px; margin-bottom: 20px;">
+                        <div style="background: rgba(30, 41, 59, 0.9); padding: 15px; border-radius: 10px; border-left: 4px solid var(--primary);">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <strong>💪 Séance type</strong>
+                                <div style="display: flex; gap: 10px;">
+                                    <span class="param speed">5,2-5,5 km/h</span>
+                                    <span class="param incline">10-12%</span>
+                                    <span class="param">40-45 min</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="background: linear-gradient(135deg, rgba(129, 140, 248, 0.25), rgba(129, 140, 248, 0.15)); border: 1px solid rgba(129, 140, 248, 0.4); padding: 20px; border-radius: 12px; margin-top: 20px;">
+                        <p style="line-height: 1.8; color: #e2e8f0;"><strong>💡 Focus :</strong> Continue les intervalles Superman 2x/semaine, endurance continue 2x/semaine.</p>
+                        <p style="margin-top: 10px;"><strong>🧩 Calories :</strong> <span style="font-size: 1.2em; color: var(--primary); font-weight: bold;">600-650 kcal</span> par séance.</p>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 20px; padding: 20px; background: rgba(30, 41, 59, 0.9); border-radius: 12px;">
+                        <div style="font-size: 0.9em; color: #94a3b8; margin-bottom: 10px;">Fréquence</div>
+                        <div style="font-size: 2em; font-weight: bold; color: var(--primary);">4 séances</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="week-detail hidden" id="week10-content">
+                <div style="background: linear-gradient(135deg, #1e293b, #334155); padding: 30px; border-radius: 15px; border: 2px solid rgba(129, 140, 248, 0.2);">
+                    <h3 style="font-size: 2em; color: var(--primary); margin-bottom: 15px;">SEMAINE 10 – Phase sèche profonde 🔥</h3>
+                    
+                    <div style="background: rgba(251, 191, 36, 0.15); padding: 20px; border-radius: 12px; margin-bottom: 25px; border-left: 5px solid var(--accent);">
+                        <strong style="color: #fcd34d; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5); font-size: 1.1em;">🎯 Objectif :</strong>
+                        <p style="margin-top: 10px; line-height: 1.8; color: #e2e8f0;">Maximiser la définition musculaire et continuer la perte de graisse viscérale.</p>
+                    </div>
+
+                    <div style="display: grid; gap: 15px; margin-bottom: 20px;">
+                        <div style="background: rgba(30, 41, 59, 0.9); padding: 15px; border-radius: 10px; border-left: 4px solid #ef4444;">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <strong>🔥 Intensité maximale</strong>
+                                <div style="display: flex; gap: 10px;">
+                                    <span class="param speed">5,5 km/h</span>
+                                    <span class="param incline">12%</span>
+                                    <span class="param">30-35 min</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="background: linear-gradient(135deg, rgba(129, 140, 248, 0.25), rgba(129, 140, 248, 0.15)); border: 1px solid rgba(129, 140, 248, 0.4); padding: 20px; border-radius: 12px; margin-top: 20px;">
+                        <p style="line-height: 1.8; color: #e2e8f0;"><strong>💡 Astuce :</strong> Ton corps est maintenant une machine. Profite de cette période de pic de performance.</p>
+                        <p style="margin-top: 10px;"><strong>🧩 Calories :</strong> <span style="font-size: 1.2em; color: var(--primary); font-weight: bold;">650+ kcal</span> par séance.</p>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 20px; padding: 20px; background: rgba(30, 41, 59, 0.9); border-radius: 12px;">
+                        <div style="font-size: 0.9em; color: #94a3b8; margin-bottom: 10px;">Fréquence</div>
+                        <div style="font-size: 2em; font-weight: bold; color: var(--primary);">4-5 séances</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="week-detail hidden" id="week11-content">
+                <div style="background: linear-gradient(135deg, #1e293b, #334155); padding: 30px; border-radius: 15px; border: 2px solid rgba(129, 140, 248, 0.2);">
+                    <h3 style="font-size: 2em; color: var(--primary); margin-bottom: 15px;">SEMAINE 11 – Perfectionnement 🎯</h3>
+                    
+                    <div style="background: rgba(251, 191, 36, 0.15); padding: 20px; border-radius: 12px; margin-bottom: 25px; border-left: 5px solid var(--accent);">
+                        <strong style="color: #fcd34d; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5); font-size: 1.1em;">🎯 Objectif :</strong>
+                        <p style="margin-top: 10px; line-height: 1.8; color: #e2e8f0;">Peaufiner les derniers détails avant la finalisation.</p>
+                    </div>
+
+                    <div style="display: grid; gap: 15px; margin-bottom: 20px;">
+                        <div style="background: rgba(30, 41, 59, 0.9); padding: 15px; border-radius: 10px; border-left: 4px solid var(--primary);">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <strong>💎 Mix optimal</strong>
+                                <div style="display: flex; gap: 10px;">
+                                    <span class="param">Varie entre 10-12%</span>
+                                    <span class="param">45 min</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="background: linear-gradient(135deg, rgba(129, 140, 248, 0.25), rgba(129, 140, 248, 0.15)); border: 1px solid rgba(129, 140, 248, 0.4); padding: 20px; border-radius: 12px; margin-top: 20px;">
+                        <p style="line-height: 1.8; color: #e2e8f0;"><strong>💡 Stratégie :</strong> Alterne entre endurance longue et intervalles courts selon ton énergie du jour.</p>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 20px; padding: 20px; background: rgba(30, 41, 59, 0.9); border-radius: 12px;">
+                        <div style="font-size: 0.9em; color: #94a3b8; margin-bottom: 10px;">Fréquence</div>
+                        <div style="font-size: 2em; font-weight: bold; color: var(--primary);">4 séances</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="week-detail hidden" id="week12-content">
+                <div style="background: linear-gradient(135deg, #1e293b, #334155); padding: 30px; border-radius: 15px; border: 2px solid rgba(129, 140, 248, 0.2);">
+                    <h3 style="font-size: 2em; color: var(--primary); margin-bottom: 15px;">SEMAINE 12 – Victoire finale 🏆</h3>
+                    
+                    <div style="background: linear-gradient(135deg, rgba(52, 211, 153, 0.25), rgba(52, 211, 153, 0.15)); border: 1px solid rgba(52, 211, 153, 0.4); padding: 25px; border-radius: 12px; margin-bottom: 25px; border-left: 5px solid var(--secondary);">
+                        <strong style="color: #6ee7b7; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5); font-size: 1.2em;">🎯 Objectif :</strong>
+                        <p style="margin-top: 10px; line-height: 1.8; font-size: 1.1em;">Célébrer ta transformation complète tout en maintenant l'intensité.</p>
+                    </div>
+
+                    <div style="display: grid; gap: 15px; margin-bottom: 20px;">
+                        <div style="background: rgba(30, 41, 59, 0.9); padding: 15px; border-radius: 10px; border-left: 4px solid #fbbf24;">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <strong>🏆 Programme de champion</strong>
+                                <div style="display: flex; gap: 10px;">
+                                    <span class="param speed">5,5 km/h</span>
+                                    <span class="param incline">12%</span>
+                                    <span class="param">45 min</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="background: linear-gradient(135deg, rgba(251, 191, 36, 0.25), rgba(251, 191, 36, 0.15)); border: 1px solid rgba(251, 191, 36, 0.4); padding: 25px; border-radius: 12px; margin-top: 20px; border-left: 5px solid #f59e0b;">
+                        <p style="line-height: 1.8; font-size: 1.1em;"><strong>🎉 MISSION ACCOMPLIE !</strong></p>
+                        <p style="margin-top: 15px; line-height: 1.8; color: #e2e8f0;">Tu es passé de 106 kg à 90-92 kg, ton VO₂ max a bondi de 31,7 à 40-42, et tu peux maintenant tenir 12% d'inclinaison pendant 45 minutes sans problème !</p>
+                        <p style="margin-top: 15px; font-size: 1.2em; font-weight: bold; color: var(--primary);">Tu es devenu SUPERMAN ! 🦸‍♂️</p>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 20px; padding: 20px; background: rgba(30, 41, 59, 0.9); border-radius: 12px;">
+                        <div style="font-size: 0.9em; color: #94a3b8; margin-bottom: 10px;">Fréquence</div>
+                        <div style="font-size: 2em; font-weight: bold; color: var(--primary);">4 séances</div>
+                        <div style="font-size: 0.9em; color: #94a3b8; margin-top: 15px; font-style: italic;">Puis transition vers le maintien</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Overview -->
+        <div class="phase-content" id="overview">
+            <h2 class="phase-title">📊 Vue d'ensemble du programme</h2>
+            
+            <div class="phase-overview">
+                <h3 style="color: #a5b4fc;  margin-bottom: 15px; font-size: 1.5em;">⚙️ Protocole combiné</h3>
+                <p style="margin-bottom: 20px; line-height: 1.8; color: #e2e8f0;">Sur 12 semaines, Eric, avec ton protocole combiné, tu entres dans un <strong>cycle métabolique complet</strong>. C'est la durée parfaite pour reprogrammer ton corps : le forcer à utiliser la graisse comme carburant, consolider ton cardio, et sculpter une masse musculaire sèche et dense.</p>
+                
+                <div class="overview-grid">
+                    <div class="overview-item">
+                        <div class="overview-label" style="color: #a5b4fc; font-weight: 600;">💪 Musculation</div>
+                        <div class="overview-value">5 séances par semaine<br>Split : Push/Pull/Legs/Upper/Full<br>60-75 minutes</div>
+                    </div>
+                    <div class="overview-item">
+                        <div class="overview-label" style="color: #a5b4fc; font-weight: 600;">🏃 Cardio matin</div>
+                        <div class="overview-value">À jeun, 35-45 min<br>4,8-5,2 km/h, 5-8% pente<br>Eau + électrolytes + café</div>
+                    </div>
+                    <div class="overview-item">
+                        <div class="overview-label" style="color: #a5b4fc; font-weight: 600;">🚶 Cardio soir</div>
+                        <div class="overview-value">Post-repas, 35-40 min<br>5,5 km/h, 8-10% pente<br>Effet drainant</div>
+                    </div>
+                    <div class="overview-item">
+                        <div class="overview-label" style="color: #a5b4fc; font-weight: 600;">⏰ Jeûne intermittent</div>
+                        <div class="overview-value">16/8<br>Fenêtre alimentaire : 12h-20h<br>8h de jeûne nocturne inclus</div>
+                    </div>
+                    <div class="overview-item">
+                        <div class="overview-label" style="color: #a5b4fc; font-weight: 600;">🔥 Déficit calorique</div>
+                        <div class="overview-value">1000-1500 kcal/jour<br>Dépense : 3500-4000 kcal<br>Apport : 2400-2600 kcal</div>
+                    </div>
+                    <div class="overview-item">
+                        <div class="overview-label" style="color: #a5b4fc; font-weight: 600;">📉 Perte hebdomadaire</div>
+                        <div class="overview-value">0,8 à 1,2 kg de graisse pure<br>Maintien du muscle<br>Voire légère prise</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progression Table -->
+            <div class="nutrition-section">
+                <h3 style="color: #a5b4fc;  font-size: 1.8em; margin-bottom: 20px;">📉 Projection réaliste de perte de poids</h3>
+                <table class="nutrition-table">
+                    <thead>
+                        <tr>
+                            <th>Phase</th>
+                            <th>Durée</th>
+                            <th>Poids estimé</th>
+                            <th>Évolution</th>
+                            <th>Détails</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>S1-S2</strong></td>
+                            <td>2 semaines</td>
+                            <td><strong>103-104 kg</strong></td>
+                            <td style="color: var(--secondary); font-weight: bold;">-2 à -3 kg</td>
+                            <td>Adaptation : corps vide ses réserves de glycogène et d'eau</td>
+                        </tr>
+                        <tr>
+                            <td><strong>S3-S4</strong></td>
+                            <td>2 semaines</td>
+                            <td><strong>100-101 kg</strong></td>
+                            <td style="color: var(--secondary); font-weight: bold;">-2 à -3 kg</td>
+                            <td>Lipolyse active : vraie combustion du gras</td>
+                        </tr>
+                        <tr>
+                            <td><strong>S5-S6</strong></td>
+                            <td>2 semaines</td>
+                            <td><strong>98-99 kg</strong></td>
+                            <td style="color: var(--secondary); font-weight: bold;">-2 kg</td>
+                            <td>Stabilisation musculaire : meilleure endurance et force</td>
+                        </tr>
+                        <tr>
+                            <td><strong>S7-S8</strong></td>
+                            <td>2 semaines</td>
+                            <td><strong>95-96 kg</strong></td>
+                            <td style="color: var(--secondary); font-weight: bold;">-2 à -3 kg</td>
+                            <td>Déstockage profond : définition visible (bras, ventre, visage)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>S9-S10</strong></td>
+                            <td>2 semaines</td>
+                            <td><strong>92-94 kg</strong></td>
+                            <td style="color: var(--secondary); font-weight: bold;">-2 kg</td>
+                            <td>Phase sèche : graisse viscérale en baisse nette</td>
+                        </tr>
+                        <tr>
+                            <td><strong>S11-S12</strong></td>
+                            <td>2 semaines</td>
+                            <td><strong>90-92 kg</strong></td>
+                            <td style="color: var(--secondary); font-weight: bold;">-2 kg</td>
+                            <td>Recomposition : muscles plus denses, silhouette athlétique</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="highlight-box" style="margin-top: 20px;">
+                    <strong>🎯 Total perte estimée : -14 à -16 kg en 12 semaines</strong>, avec maintien complet du muscle (voire légère prise).
+                </div>
+            </div>
+        </div>
+
+        <!-- Phase 1 (S1-4) -->
+        <div class="phase-content hidden" id="phase1">
+            <h2 class="phase-title">Phase 1 : Adaptation (S1-4) 🚀</h2>
+            
+            <div class="phase-overview">
+                <h3 style="color: #a5b4fc;  margin-bottom: 15px;">🎯 Objectif de la phase</h3>
+                <p style="line-height: 1.8; color: #e2e8f0;"><strong>Le corps apprend à tourner aux acides gras.</strong> Perte attendue : 4-6 kg (glycogène, eau et début de lipolyse).</p>
+            </div>
+
+            <div class="daily-schedule">
+                <h3 class="schedule-title">📅 Structure quotidienne type</h3>
+                
+                <div class="schedule-grid">
+                    <!-- Matin -->
+                    <div class="schedule-card">
+                        <div class="schedule-header">
+                            <span class="schedule-time">🌅 Matin (à jeun)</span>
+                            <span class="schedule-type">CARDIO</span>
+                        </div>
+                        <ul class="schedule-details">
+                            <li>
+                                <span class="detail-name" style="color: #e2e8f0;">Marche à jeun</span>
+                                <div class="detail-params">
+                                    <span class="param speed">4,8 km/h</span>
+                                    <span class="param incline">5-6%</span>
+                                    <span class="param">35-40 min</span>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="detail-name" style="color: #e2e8f0;">☕ Hydratation</span>
+                                <div class="detail-params">
+                                    <span class="param">Eau + électrolytes</span>
+                                    <span class="param">Café noir OK</span>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="highlight-box">
+                            <strong>💡 Astuce :</strong> Ton corps puise directement dans les graisses car glycogène bas après la nuit.
+                        </div>
+                    </div>
+
+                    <!-- Après-midi -->
+                    <div class="schedule-card">
+                        <div class="schedule-header">
+                            <span class="schedule-time">💪 Après-midi</span>
+                            <span class="schedule-type">MUSCU</span>
+                        </div>
+                        <ul class="schedule-details">
+                            <li>
+                                <span class="detail-name" style="color: #e2e8f0;">Split 5 jours</span>
+                                <div class="detail-params">
+                                    <span class="param">Push / Pull / Legs</span>
+                                    <span class="param">Upper / Full</span>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="detail-name" style="color: #e2e8f0;">Durée & intensité</span>
+                                <div class="detail-params">
+                                    <span class="param">60-75 min</span>
+                                    <span class="param">70-80%</span>
+                                    <span class="param">10-15 reps</span>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="detail-name" style="color: #e2e8f0;">Techniques</span>
+                                <div class="detail-params">
+                                    <span class="param">Superset</span>
+                                    <span class="param">Finisher cardio</span>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="highlight-box">
+                            <strong>💡 Astuce :</strong> Garde la FC élevée avec supersets pour maximiser la dépense.
+                        </div>
+                    </div>
+
+                    <!-- Soir -->
+                    <div class="schedule-card">
+                        <div class="schedule-header">
+                            <span class="schedule-time">🌙 Soir (post-repas)</span>
+                            <span class="schedule-type">CARDIO</span>
+                        </div>
+                        <ul class="schedule-details">
+                            <li>
+                                <span class="detail-name" style="color: #e2e8f0;">Marche post-dîner</span>
+                                <div class="detail-params">
+                                    <span class="param speed">5,5 km/h</span>
+                                    <span class="param incline">8%</span>
+                                    <span class="param">35-40 min</span>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="detail-name" style="color: #e2e8f0;">Bénéfices</span>
+                                <div class="detail-params">
+                                    <span class="param">Effet drainant</span>
+                                    <span class="param">Gestion glycémique</span>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="highlight-box">
+                            <strong>💡 Astuce :</strong> Cette marche évacue le glucose post-repas et favorise la digestion.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nutrition Phase 1 -->
+            <div class="nutrition-section">
+                <h3 style="color: #a5b4fc;  font-size: 1.8em; margin-bottom: 20px;">🍽️ Nutrition Phase 1 (S1-4)</h3>
+                <table class="nutrition-table">
+                    <thead>
+                        <tr>
+                            <th>Calories moyennes</th>
+                            <th>Protéines</th>
+                            <th>Glucides</th>
+                            <th>Lipides</th>
+                            <th>Eau</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong style="font-size: 1.3em; color: var(--primary);">2500 kcal</strong></td>
+                            <td><strong style="color: var(--secondary);">230 g</strong><br>(2,2 g/kg)</td>
+                            <td><strong style="color: var(--accent);">120 g</strong><br>Modérés</td>
+                            <td><strong style="color: #ef4444;">80 g</strong><br>Équilibrés</td>
+                            <td><strong style="color: #06b6d4;">3,5-4 L</strong><br>Minimum</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="highlight-box">
+                    <strong>🔄 Refeed hebdomadaire :</strong> 1x/semaine, monte à 200-250g de glucides pour relancer le métabolisme.
+                </div>
+            </div>
+        </div>
+
+        <!-- Phase 2 (S5-8) -->
+        <div class="phase-content hidden" id="phase2">
+            <h2 class="phase-title">Phase 2 : Optimisation (S5-8) 💥</h2>
+            
+            <div class="phase-overview">
+                <h3 style="color: #a5b4fc;  margin-bottom: 15px;">🎯 Objectif de la phase</h3>
+                <p style="line-height: 1.8; color: #e2e8f0;"><strong>Ton cœur devient plus efficace → VO₂ max +20%.</strong> Perte attendue : 4-5 kg de graisse pure. Définition visible.</p>
+            </div>
+
+            <div class="daily-schedule">
+                <h3 class="schedule-title">📅 Structure quotidienne type</h3>
+                
+                <div class="schedule-grid">
+                    <!-- Matin -->
+                    <div class="schedule-card">
+                        <div class="schedule-header">
+                            <span class="schedule-time">🌅 Matin (à jeun)</span>
+                            <span class="schedule-type">CARDIO INTENSIFIÉ</span>
+                        </div>
+                        <ul class="schedule-details">
+                            <li>
+                                <span class="detail-name" style="color: #e2e8f0;">Marche à jeun +</span>
+                                <div class="detail-params">
+                                    <span class="param speed">5,0 km/h</span>
+                                    <span class="param incline">6-8%</span>
+                                    <span class="param">40-45 min</span>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="detail-name" style="color: #e2e8f0;">💊 Suppléments</span>
+                                <div class="detail-params">
+                                    <span class="param">L-Carnitine</span>
+                                    <span class="param">Caféine</span>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="highlight-box">
+                            <strong>💡 Upgrade :</strong> Intensité légèrement augmentée pour forcer l'adaptation cardiaque.
+                        </div>
+                    </div>
+
+                    <!-- Après-midi -->
+                    <div class="schedule-card">
+                        <div class="schedule-header">
+                            <span class="schedule-time">💪 Après-midi</span>
+                            <span class="schedule-type">MUSCU PROGRESSIVE</span>
+                        </div>
+                        <ul class="schedule-details">
+                            <li>
+                                <span class="detail-name" style="color: #e2e8f0;">Programme</span>
+                                <div class="detail-params">
+                                    <span class="param">Même split</span>
+                                    <span class="param">Charge +5-10%</span>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="detail-name" style="color: #e2e8f0;">Techniques avancées</span>
+                                <div class="detail-params">
+                                    <span class="param">Drop sets</span>
+                                    <span class="param">Rest-pause</span>
+                                    <span class="param">Tempo lent</span>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="highlight-box">
+                            <strong>💡 Focus :</strong> Maintenir la force malgré le déficit calorique = muscle préservé.
+                        </div>
+                    </div>
+
+                    <!-- Soir -->
+                    <div class="schedule-card">
+                        <div class="schedule-header">
+                            <span class="schedule-time">🌙 Soir (post-repas)</span>
+                            <span class="schedule-type">CARDIO PUISSANT</span>
+                        </div>
+                        <ul class="schedule-details">
+                            <li>
+                                <span class="detail-name" style="color: #e2e8f0;">Marche intense</span>
+                                <div class="detail-params">
+                                    <span class="param speed">5,5 km/h</span>
+                                    <span class="param incline">9-10%</span>
+                                    <span class="param">35-40 min</span>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="highlight-box">
+                            <strong>💡 Sensation :</strong> Tu devrais sentir une vraie chaleur dans les jambes et une bonne sueur.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nutrition Phase 2 -->
+            <div class="nutrition-section">
+                <h3 style="color: #a5b4fc;  font-size: 1.8em; margin-bottom: 20px;">🍽️ Nutrition Phase 2 (S5-8)</h3>
+                <table class="nutrition-table">
+                    <thead>
+                        <tr>
+                            <th>Calories moyennes</th>
+                            <th>Protéines</th>
+                            <th>Glucides</th>
+                            <th>Lipides</th>
+                            <th>Eau</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong style="font-size: 1.3em; color: var(--primary);">2400 kcal</strong></td>
+                            <td><strong style="color: var(--secondary);">230 g</strong><br>(2,2 g/kg)</td>
+                            <td><strong style="color: var(--accent);">100 g</strong><br>Réduits</td>
+                            <td><strong style="color: #ef4444;">85 g</strong><br>Légèrement +</td>
+                            <td><strong style="color: #06b6d4;">3,5-4 L</strong><br>Minimum</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="highlight-box">
+                    <strong>🔄 Refeed :</strong> Toujours 1x/semaine à 200-250g glucides. Ne saute jamais cette étape !
+                </div>
+            </div>
+        </div>
+
+        <!-- Phase 3 (S9-12) -->
+        <div class="phase-content hidden" id="phase3">
+            <h2 class="phase-title">Phase 3 : Finalisation (S9-12) 🏆</h2>
+            
+            <div class="phase-overview">
+                <h3 style="color: #a5b4fc;  margin-bottom: 15px;">🎯 Objectif de la phase</h3>
+                <p style="line-height: 1.8; color: #e2e8f0;"><strong>Le métabolisme ralentit naturellement, mais le muscle protège ton taux de combustion.</strong> Tu finis avec un physique sec, solide et endurant. Perte : 4 kg final.</p>
+            </div>
+
+            <div class="daily-schedule">
+                <h3 class="schedule-title">📅 Structure quotidienne type</h3>
+                
+                <div class="schedule-grid">
+                    <!-- Matin -->
+                    <div class="schedule-card">
+                        <div class="schedule-header">
+                            <span class="schedule-time">🌅 Matin (à jeun)</span>
+                            <span class="schedule-type">CARDIO MAXIMAL</span>
+                        </div>
+                        <ul class="schedule-details">
+                            <li>
+                                <span class="detail-name" style="color: #e2e8f0;">Marche peak</span>
+                                <div class="detail-params">
+                                    <span class="param speed">5,2 km/h</span>
+                                    <span class="param incline">8%</span>
+                                    <span class="param">45 min</span>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="detail-name" style="color: #e2e8f0;">🎵 État mental</span>
+                                <div class="detail-params">
+                                    <span class="param">Musique motivante</span>
+                                    <span class="param">Visualisation</span>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="highlight-box">
+                            <strong>💡 Mindset :</strong> C'est la phase finale, chaque séance compte double psychologiquement.
+                        </div>
+                    </div>
+
+                    <!-- Après-midi -->
+                    <div class="schedule-card">
+                        <div class="schedule-header">
+                            <span class="schedule-time">💪 Après-midi</span>
+                            <span class="schedule-type">MUSCU DÉFINITION</span>
+                        </div>
+                        <ul class="schedule-details">
+                            <li>
+                                <span class="detail-name" style="color: #e2e8f0;">Focus</span>
+                                <div class="detail-params">
+                                    <span class="param">Reps hautes 12-20</span>
+                                    <span class="param">Tempo contrôlé</span>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="detail-name" style="color: #e2e8f0;">Objectif</span>
+                                <div class="detail-params">
+                                    <span class="param">Définition max</span>
+                                    <span class="param">Vascularité</span>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="highlight-box">
+                            <strong>💡 Stratégie :</strong> On sculpte maintenant, plus besoin de forcer sur les charges lourdes.
+                        </div>
+                    </div>
+
+                    <!-- Soir -->
+                    <div class="schedule-card">
+                        <div class="schedule-header">
+                            <span class="schedule-time">🌙 Soir (post-repas)</span>
+                            <span class="schedule-type">CARDIO FINAL</span>
+                        </div>
+                        <ul class="schedule-details">
+                            <li>
+                                <span class="detail-name" style="color: #e2e8f0;">Marche finale</span>
+                                <div class="detail-params">
+                                    <span class="param speed">5,5 km/h</span>
+                                    <span class="param incline">10%</span>
+                                    <span class="param">40 min</span>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="highlight-box">
+                            <strong>💡 Célébration :</strong> À chaque séance, rappelle-toi le chemin parcouru depuis S1.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nutrition Phase 3 -->
+            <div class="nutrition-section">
+                <h3 style="color: #a5b4fc;  font-size: 1.8em; margin-bottom: 20px;">🍽️ Nutrition Phase 3 (S9-12)</h3>
+                <table class="nutrition-table">
+                    <thead>
+                        <tr>
+                            <th>Calories moyennes</th>
+                            <th>Protéines</th>
+                            <th>Glucides</th>
+                            <th>Lipides</th>
+                            <th>Eau</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong style="font-size: 1.3em; color: var(--primary);">2300 kcal</strong></td>
+                            <td><strong style="color: var(--secondary);">240 g</strong><br>(2,5+ g/kg)</td>
+                            <td><strong style="color: var(--accent);">80 g</strong><br>Minimal</td>
+                            <td><strong style="color: #ef4444;">80 g</strong><br>Contrôlés</td>
+                            <td><strong style="color: #06b6d4;">4 L+</strong><br>Maximum</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="highlight-box">
+                    <strong>⚠️ Important :</strong> Protéines augmentées pour préserver muscle au maximum. Refeed maintenu !
+                </div>
+            </div>
+        </div>
+
+        <!-- Results -->
+        <div class="phase-content hidden" id="results">
+            <h2 class="phase-title">🎯 Résultats attendus après 12 semaines</h2>
+
+            <div class="results-section">
+                <h3 class="results-title">🏆 Ta transformation finale</h3>
+                <div class="results-grid">
+                    <div class="result-card">
+                        <div class="result-icon">⚖️</div>
+                        <div class="result-label">Poids corporel</div>
+                        <div class="result-values">
+                            <span>106 kg</span>
+                            <span class="result-arrow">→</span>
+                            <span>90-92 kg</span>
+                        </div>
+                    </div>
+
+                    <div class="result-card">
+                        <div class="result-icon">📊</div>
+                        <div class="result-label">Masse grasse</div>
+                        <div class="result-values">
+                            <span>~25%</span>
+                            <span class="result-arrow">→</span>
+                            <span>13-14%</span>
+                        </div>
+                    </div>
+
+                    <div class="result-card">
+                        <div class="result-icon">💨</div>
+                        <div class="result-label">VO₂ max</div>
+                        <div class="result-values">
+                            <span>31,7</span>
+                            <span class="result-arrow">→</span>
+                            <span>40-42</span>
+                        </div>
+                    </div>
+
+                    <div class="result-card">
+                        <div class="result-icon">📏</div>
+                        <div class="result-label">Tour de taille</div>
+                        <div class="result-values">
+                            <span style="font-size: 0.9em;">-8 à -10 cm</span>
+                        </div>
+                    </div>
+
+                    <div class="result-card">
+                        <div class="result-icon">💪</div>
+                        <div class="result-label">Abdos</div>
+                        <div class="result-values">
+                            <span>VISIBLES</span>
+                        </div>
+                    </div>
+
+                    <div class="result-card">
+                        <div class="result-icon">🏃</div>
+                        <div class="result-label">Cardio</div>
+                        <div class="result-values">
+                            <span style="font-size: 0.8em;">Endurance forte<br>Récup rapide</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Body Evolution -->
+            <div class="nutrition-section">
+                <h3 style="color: #a5b4fc;  font-size: 1.8em; margin-bottom: 20px;">🧬 Ce qui se passe dans ton corps</h3>
+                <div class="overview-grid">
+                    <div class="overview-item" style="border-left: 5px solid var(--primary);">
+                        <div class="overview-label" style="color: #a5b4fc; font-weight: 600;">📅 S1-4</div>
+                        <div class="overview-value" style="line-height: 1.6;">Le corps apprend à tourner aux acides gras. Adaptation métabolique complète. Perte rapide initiale (eau + glycogène).</div>
+                    </div>
+                    <div class="overview-item" style="border-left: 5px solid var(--secondary);">
+                        <div class="overview-label" style="color: #a5b4fc; font-weight: 600;">📅 S5-8</div>
+                        <div class="overview-value" style="line-height: 1.6;">Ton cœur devient plus efficace → VO₂ max +20%. Lipolyse à son pic. Définition musculaire apparaît.</div>
+                    </div>
+                    <div class="overview-item" style="border-left: 5px solid var(--accent);">
+                        <div class="overview-label" style="color: #a5b4fc; font-weight: 600;">📅 S9-12</div>
+                        <div class="overview-value" style="line-height: 1.6;">Le métabolisme ralentit naturellement, mais le muscle protège ton taux de combustion. Physique sec, solide, endurant.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Timeline -->
+        <div class="progress-timeline">
+            <h2 class="timeline-title">📊 Timeline de progression - Clique pour valider</h2>
+            <div class="timeline-grid">
+                <div class="timeline-item" onclick="toggleTimeline(1)">
+                    <div class="timeline-week">S1-2</div>
+                    <div class="timeline-weight">103-104 kg</div>
+                    <div class="timeline-desc">Adaptation</div>
+                </div>
+                <div class="timeline-item" onclick="toggleTimeline(2)">
+                    <div class="timeline-week">S3-4</div>
+                    <div class="timeline-weight">100-101 kg</div>
+                    <div class="timeline-desc">Lipolyse active</div>
+                </div>
+                <div class="timeline-item" onclick="toggleTimeline(3)">
+                    <div class="timeline-week">S5-6</div>
+                    <div class="timeline-weight">98-99 kg</div>
+                    <div class="timeline-desc">Stabilisation</div>
+                </div>
+                <div class="timeline-item" onclick="toggleTimeline(4)">
+                    <div class="timeline-week">S7-8</div>
+                    <div class="timeline-weight">95-96 kg</div>
+                    <div class="timeline-desc">Déstockage</div>
+                </div>
+                <div class="timeline-item" onclick="toggleTimeline(5)">
+                    <div class="timeline-week">S9-10</div>
+                    <div class="timeline-weight">92-94 kg</div>
+                    <div class="timeline-desc">Phase sèche</div>
+                </div>
+                <div class="timeline-item" onclick="toggleTimeline(6)">
+                    <div class="timeline-week">S11-12</div>
+                    <div class="timeline-weight">90-92 kg</div>
+                    <div class="timeline-desc">Recomposition</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tips Section -->
+        <div class="tips-section">
+            <h2 style="color: var(--primary);  font-size: 2em; margin-bottom: 20px; text-align: center;">🔥 Conseils de maintien post-programme</h2>
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <div class="tip-icon">📈</div>
+                    <h3>Remontée calorique progressive</h3>
+                    <p>Ne remonte pas brutalement les calories. Augmente de <strong>+200 kcal/semaine</strong> sur 3-4 semaines pour éviter le rebond.</p>
+                </div>
+
+                <div class="tip-card">
+                    <div class="tip-icon">🏃</div>
+                    <h3>Cardio de maintien</h3>
+                    <p>Continue <strong>1 marche à jeun quotidienne</strong> pour stabiliser la graisse viscérale et maintenir ton système cardio.</p>
+                </div>
+
+                <div class="tip-card">
+                    <div class="tip-icon">🥩</div>
+                    <h3>Protéines toujours</h3>
+                    <p>Priorise les protéines même en maintien : <strong>2 g/kg minimum</strong>. C'est la clé pour garder ton muscle.</p>
+                </div>
+
+                <div class="tip-card">
+                    <div class="tip-icon">📸</div>
+                    <h3>Photos > Balance</h3>
+                    <p>Fais un check photo <strong>chaque 2 semaines</strong> plutôt que te peser tous les jours. Le miroir ne ment pas.</p>
+                </div>
+
+                <div class="tip-card">
+                    <div class="tip-icon">💧</div>
+                    <h3>Hydratation constante</h3>
+                    <p>Maintiens <strong>3-4L d'eau/jour</strong>. L'hydratation est cruciale pour le métabolisme et la récupération.</p>
+                </div>
+
+                <div class="tip-card">
+                    <div class="tip-icon">😴</div>
+                    <h3>Sommeil sacré</h3>
+                    <p><strong>7-8h minimum</strong>. Le sommeil impacte directement la perte de graisse et la récupération musculaire.</p>
+                </div>
+
+                <div class="tip-card">
+                    <div class="tip-icon">🔄</div>
+                    <h3>Refeed stratégique</h3>
+                    <p>Le refeed hebdomadaire n'est pas une triche, c'est une <strong>nécessité métabolique</strong>. Ne le saute jamais.</p>
+                </div>
+
+                <div class="tip-card">
+                    <div class="tip-icon">🎯</div>
+                    <h3>Mindset long terme</h3>
+                    <p>12 semaines c'est un sprint, mais le vrai défi c'est <strong>maintenir sur 6-12 mois</strong>. Pense lifestyle, pas régime.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Show specific phase
+        function showPhase(phaseId) {
+            // Hide all phases
+            document.querySelectorAll('.phase-content').forEach(phase => {
+                phase.classList.add('hidden');
+            });
+            
+            // Remove active class from all buttons
+            document.querySelectorAll('.phase-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected phase
+            document.getElementById(phaseId).classList.remove('hidden');
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Show specific week
+        function showWeek(weekNum) {
+            // Hide all week details
+            document.querySelectorAll('.week-detail').forEach(week => {
+                week.classList.add('hidden');
+            });
+            
+            // Remove active class from all week buttons
+            document.querySelectorAll('.week-nav .week-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected week
+            document.getElementById('week' + weekNum + '-content').classList.remove('hidden');
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+        }
+
+        // Toggle timeline item completion
+        function toggleTimeline(itemNum) {
+            const item = event.target.closest('.timeline-item');
+            item.classList.toggle('completed');
+            
+            // Save to localStorage
+            const completed = Array.from(document.querySelectorAll('.timeline-item.completed'))
+                .map(el => Array.from(el.parentNode.children).indexOf(el) + 1);
+            localStorage.setItem('completedTimeline', JSON.stringify(completed));
+        }
+
+        // Load completed timeline items from localStorage
+        window.addEventListener('load', () => {
+            const completed = JSON.parse(localStorage.getItem('completedTimeline') || '[]');
+            completed.forEach(itemNum => {
+                const items = document.querySelectorAll('.timeline-item');
+                if (items[itemNum - 1]) {
+                    items[itemNum - 1].classList.add('completed');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
